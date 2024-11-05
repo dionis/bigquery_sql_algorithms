@@ -11,6 +11,9 @@ on:
 jobs:
   big-query:
    runs-on: ubuntu-latest
+   permissions:
+     contents: 'read'
+     id-token: 'write'
    if: github.event.inputs.cloud == 'Big-Query'
    env:
       PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
