@@ -64,6 +64,6 @@ jobs:
           # Name of the GCP Project
           gcp_project: env.PROJECT_ID
           # Path to the directory with schemas. Name of the directory should match with the dataset name in BigQuery
-          dataset_schema_directory: env.BIGQUERY_DATASET
+          dataset_schema_directory: env.BIGQUERY_DATASET_REPOSITORY
           # Service account to autheticate with BigQuery
-          credentials: ${{ env.SERVICE_NAME}}
+          credentials: ${{ env.SERVICE_NAME }}
