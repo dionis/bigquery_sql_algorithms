@@ -18,6 +18,8 @@ jobs:
       REGION: ${{ vars.GCP_REGION }}
       BIGQUERY_DATASET_REPOSITORY: 'algorithms'
    steps: 
+     - name: Dowlonad Google Cloud version
+       run: pip install google-cloud-bigquery==2.31.0 
      - name: Checkout
        uses: actions/checkout@v2.3.4
      - name: 'Update algorithms'
