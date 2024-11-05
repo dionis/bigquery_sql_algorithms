@@ -1,0 +1,48 @@
+name: "BigQuery CD"
+run-name: "BigQuery Continue Deployment"
+on:
+  workflow_dispatch:
+    inputs:
+      cloud:
+        description: "Proveedor Cloud"
+        required: true
+        default: "Big-Query"
+        options: [ "GCP", "Big-Query"]
+jobs:
+  gcp:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.cloud == 'GCP'
+    env:
+      PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+      SERVICE_NAME: ${{ vars.GCP_SERVICE_NAME }}
+      REGION: ${{ vars.GCP_REGION }}
+    steps:
+      - name: "Autenticar en GCP"
+        id: auth
+        uses: google-github-actions/auth@ef5d53e30bbcd8d0836f4288f5e50ff3e086997d #v1.0.0
+        with:
+          token_format: access_token
+          workload_identity_provider: ${{ env.PROJECT_ID }}
+          service_account: ${{ secrets.GCP_SA_KEY }}
+      - name: "Autenticar en Artifact Registry"
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a #v2 #v2.1.0
+        with:
+          registry: ${{ vars.GCP.REGISTRY}}
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
+      - name: "Desplegar en Cloud Run"
+        uses: google-github-actions/deploy-cloudrun@9c01af28be5da14b228ba369b7700d22830b35b7 #v1.0.1
+        with:
+          image: ${{ vars.GCP_REGION }}-${{ vars.GCP.REGISTRY}}/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_REPOSITORY_NAME }}/${{ vars.GCP_IMAGE_NAME }}:latest
+          region: ${{ env.REGION }}
+          service: ${{ env.SERVICE_NAME }}
+  big-query:
+   runs-on: ubuntu-latest
+   if: github.event.inputs.cloud == 'Big-Query'
+   env:
+      PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+      SERVICE_NAME: ${{ vars.GCP_SERVICE_NAME }}
+      REGION: ${{ vars.GCP_REGION }}
+   steps:
+     - name: 'Update algorithms'
+       run: echo 'Update algorithms in BigQuery'
