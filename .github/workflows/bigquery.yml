@@ -43,6 +43,27 @@ jobs:
       PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
       SERVICE_NAME: ${{ vars.GCP_SERVICE_NAME }}
       REGION: ${{ vars.GCP_REGION }}
-   steps:
+      BIGQUERY_DATASET_REPOSITORY: 'algorithms'
+   steps: 
      - name: 'Update algorithms'
        run: echo 'Update algorithms in BigQuery'
+     - name: "Autenticar en GCP"
+       id: auth
+       uses: google-github-actions/auth@ef5d53e30bbcd8d0836f4288f5e50ff3e086997d #v1.0.0
+       with:
+          token_format: access_token
+          workload_identity_provider: ${{ env.PROJECT_ID }}
+          service_account: ${{ secrets.GCP_SA_KEY }}
+     - name: "Show GCP info"
+       run: echo "Token  ${{ steps.auth.outputs.access_token }}"
+     - name: Google Bigquery "Deploy table, view and other structure definitions" Action for Github Action
+       # You may pin to the exact commit or the version.
+       # uses: jashparekh/bigquery-action@0f6660576ba2a5246574edf336ab17fc011af9ec
+       uses: jashparekh/bigquery-action@v3
+       with:
+          # Name of the GCP Project
+          gcp_project: env.PROJECT_ID
+          # Path to the directory with schemas. Name of the directory should match with the dataset name in BigQuery
+          dataset_schema_directory: env.BIGQUERY_DATASET
+          # Service account to autheticate with BigQuery
+          credentials: ${{ env.SERVICE_NAME}}
