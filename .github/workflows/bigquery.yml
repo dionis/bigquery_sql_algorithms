@@ -34,7 +34,8 @@ jobs:
        with:
           token_format: access_token
           workload_identity_provider: ${{ env.WORLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SA_KEY }}          
+          service_account: ${{ secrets.GCP_SA_KEY }}    
+          audience: ${{ env.WORLOAD_IDENTITY_PROVIDER }}
      - name: "Show GCP info"
        run: echo "Token  ${{ steps.auth.outputs.access_token }}"
     # - name: Google Bigquery "Deploy table, view and other structure definitions" Action for Github Action
