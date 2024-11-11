@@ -39,7 +39,7 @@ jobs:
      - name: Google Bigquery "Deploy table, view and other structure definitions" Action for Github Action
        # You may pin to the exact commit or the version.
        uses: jashparekh/bigquery-action@0f6660576ba2a5246574edf336ab17fc011af9ec
-       #uses: jashparekh/bigquery-action@v3
+       #uses:  jashparekh/bigquery-action@v3
        with:
           # Name of the GCP Project
           gcp_project: env.PROJECT_ID
