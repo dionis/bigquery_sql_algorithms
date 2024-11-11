@@ -28,6 +28,7 @@ def _validate_if_path_exists():
 
 def _deploy():
     deploy_failed = False
+    print(' Find variables -->')
     dataset_schema_directory = os.environ.get("dataset_schema_directory")
     credentials = os.environ.get("credentials")
     gcp_project = os.environ.get("gcp_project")
