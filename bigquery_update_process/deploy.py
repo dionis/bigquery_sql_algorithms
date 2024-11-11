@@ -33,6 +33,7 @@ def _deploy():
     gcp_project = os.environ.get("gcp_project")
 
     try:
+        print (f"Deploying crendential {credentials} and project {gcp_project}")
         bq = BigQuery(credentials, gcp_project)
         print (f"Open BigQuery objets ==> {dataset_schema_directory}")
         for root, dirs, files in os.walk(dataset_schema_directory):
