@@ -22,6 +22,7 @@ def _validate_env_variables():
 
 def _validate_if_path_exists():
     dataset_schema_directory = os.environ.get("dataset_schema_directory")
+    print(f"Directory path to file {os.environ.get("dataset_schema_directory")}")
     return os.path.isdir(dataset_schema_directory)
 
 
