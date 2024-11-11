@@ -39,24 +39,14 @@ jobs:
           credentials_json: ${{ env.CREDENTIALS_JSON }}         
      - name: "Authenticate to GCP "
        run: echo "Token  ${{ steps.auth.outputs.access_token }}"
-     - name: "Update BigQuery with use python code"       
-       run: cd bigquery_update_process
-     - name: "Create environement"
-       run: |
-          python3 -m venv env
-          source env/bin/activate
-          pip install -r requirements.txt
-     - name: "Deploy to BigQuery"
-       run: python  __init__.py
-         
-    #  - name: Google Bigquery "Deploy table, view and other structure definitions" Action for Github Action
-    #    # You may pin to the exact commit or the version.
-    #    uses: jashparekh/bigquery-action@0f6660576ba2a5246574edf336ab17fc011af9ec
-    #    #uses:  jashparekh/bigquery-action@v3
-    #    with:
-    #       # Name of the GCP Project
-    #       gcp_project: env.PROJECT_ID
-    #       # Path to the directory with schemas. Name of the directory should match with the dataset name in BigQuery
-    #       dataset_schema_directory: env.BIGQUERY_DATASET_REPOSITORY
-    #       # Service account to autheticate with BigQuery
-    #       credentials: ${{ secrets.GCP_SA_KEY }}
+     - name: Google Bigquery "Deploy table, view and other structure definitions" Action for Github Action
+       # You may pin to the exact commit or the version.
+       uses: jashparekh/bigquery-action@0f6660576ba2a5246574edf336ab17fc011af9ec
+       #uses:  jashparekh/bigquery-action@v3
+       with:
+          # Name of the GCP Project
+          gcp_project: env.PROJECT_ID
+          # Path to the directory with schemas. Name of the directory should match with the dataset name in BigQuery
+          dataset_schema_directory: env.BIGQUERY_DATASET_REPOSITORY
+          # Service account to autheticate with BigQuery
+          credentials: ${{ secrets.GCP_SA_KEY }}
