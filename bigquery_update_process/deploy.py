@@ -34,7 +34,9 @@ def _deploy():
 
     try:
         bq = BigQuery(credentials, gcp_project)
+        print (f"Open BigQuery objets ==> {dataset_schema_directory}")
         for root, dirs, files in os.walk(dataset_schema_directory):
+            print(f"Split root directory {root} {dirs} ")
             dataset = root.split("/").pop()
             for file in files:
                 with open(f"{root}/{file}", "r") as contents:
