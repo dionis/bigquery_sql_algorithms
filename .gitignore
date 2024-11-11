@@ -134,3 +134,4 @@ dist
 gha-creds-*.json
 
 gcp_key/*.json
+clone_github_bigquery_action/*
