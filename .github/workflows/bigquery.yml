@@ -39,16 +39,15 @@ jobs:
           credentials_json: ${{ env.CREDENTIALS_JSON }}         
      - name: "Authenticate to GCP "
        run: echo "Token  ${{ steps.auth.outputs.access_token }}"
-     - name: "Move to python script directory"
-       run: cd bigquery_update_process
+
      - name: "Create python enviromenent" 
        run: |
      - uses: actions/setup-python@v5
        with:
-          python-version: '3.10' 
-     - run: ls -l   
-     - run: cd bigquery_update_process 
-     - run: ls -l     
+          python-version: '3.10'          
+     - name: "Move to python script directory"
+       working-directory: ./bigquery_update_process
+       run: ls -l
      - run: pip install -r requirements.txt
      - run: python __init__.py
         
