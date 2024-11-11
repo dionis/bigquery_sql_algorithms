@@ -61,7 +61,10 @@ def _deploy():
 
 def main():
     _validate_env_variables()
+    print("-----------------")
     if _validate_if_path_exists():
+        print("------|||||||||-----------")
         _deploy()
+       print("------|||||||||-----------")
     else:
         raise DatasetSchemaDirectoryNonExistent
