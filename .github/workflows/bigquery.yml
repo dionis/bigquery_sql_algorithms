@@ -45,8 +45,8 @@ jobs:
        run: |
      - uses: actions/setup-python@v5
        with:
-          python-version: '3.10'
-          cache: 'pip' # caching pip dependencies
+          python-version: '3.10' 
+     - run: ls -l         
      - run: pip install -r requirements.txt
      - run: python __init__.py
         
