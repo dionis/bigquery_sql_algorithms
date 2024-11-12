@@ -24,7 +24,7 @@ jobs:
       CREDENTIALS_JSON: ${{secrets.GCP_CREDENTIALS_JSON}}
       gcp_project: ${{ vars.GCP_PROJECT_ID }}
       dataset_schema_directory: '../algorithms'
-      credentials: ${{ secrets.GCP_SA_KEY }}
+      credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}
    steps: 
      - name: Download Google Cloud version
        run: pip install google-cloud-bigquery==2.31.0 

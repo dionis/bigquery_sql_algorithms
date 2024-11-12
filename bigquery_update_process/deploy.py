@@ -35,7 +35,12 @@ def _deploy():
 
     try:
         print (f"Deploying crendential {credentials} and project {gcp_project}")
-        bq = BigQuery(credentials, gcp_project)
+        # Service account email address as listed in the Google Developers Console.
+        svc_account = credentials
+       
+        bq = BigQuery(svc_account=svc_account, project = gcp_project)
+
+        #bq = BigQuery(credentials, gcp_project)
         print (f"Open BigQuery objets ==> {dataset_schema_directory}")
         for root, dirs, files in os.walk(dataset_schema_directory):
             print(f"Split root directory {root} {dirs} ")
