@@ -20,10 +20,10 @@ jobs:
       WORLOAD_IDENTITY_PROVIDER: ${{ vars.GCP_WORLOAD_IDENTITY_PROVIDER }}
       SERVICE_NAME: ${{ vars.GCP_SERVICE_NAME }}
       REGION: ${{ vars.GCP_REGION }}
-      BIGQUERY_DATASET_REPOSITORY: '../algorithms'
+      BIGQUERY_DATASET_REPOSITORY: '../import_dev'
       CREDENTIALS_JSON: ${{secrets.GCP_CREDENTIALS_JSON}}
       gcp_project: ${{ vars.GCP_PROJECT_ID }}
-      dataset_schema_directory: '../algorithms'
+      dataset_schema_directory: '../import_dev'
       credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}
    steps: 
      - name: Download Google Cloud version
