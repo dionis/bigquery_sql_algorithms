@@ -51,7 +51,7 @@ def _execute():
                         f"Execute Query schema SELECT * FROM {gcp_project}.{dataset}.{file_name_and_extension[0]}"
                     )
 
-                     bq.execute(
+                    bq.execute(
                             f"SELECT * FROM {gcp_project}.{dataset}.{file_name_and_extension[0]}"
                         )
                     
