@@ -18,6 +18,14 @@ Add information in SQL to Bigquery datasource
   - [How to run dbt with BigQuery in GitHub Actions](https://medium.com/inthepipeline/how-to-run-dbt-with-bigquery-in-github-actions-97ccb1761f4b)
 
 
+## Load CSV file to BigQuery Table 
+  
+  - [How to Load CSV Files into Google Big Query using Python](https://medium.com/@ganeshnv0/how-to-load-csv-files-into-google-big-query-using-python-d23ae827dd68)
+
+  - [Loading CSV data from Cloud Storage](https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv)
+
+
+
   Example algorithm name:
 
     - pora-global.Algorithms.YP_AllergySkinTestingGroupThreeCodes_v04
