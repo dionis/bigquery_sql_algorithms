@@ -10,6 +10,6 @@ Promotion AS (
 SELECT *, 'Test' AS EXAMPLE, 'Test2' AS EXAMPLE1,  'Test3' AS EXAMPLE3, 'Test4' AS EXAMPLE4 FROM `import_dev.promotion` LIMIT 5
 )
 
-Select * FROM 
+Select Customer.*, Cashier.password, Cashier.`date created` FROM 
 Customer 
  INNER JOIN Cashier ON Customer.EXAMPLE = 0
