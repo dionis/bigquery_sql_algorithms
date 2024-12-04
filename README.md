@@ -29,3 +29,6 @@ Add information in SQL to Bigquery datasource
   Example algorithm name:
 
     - pora-global.Algorithms.YP_AllergySkinTestingGroupThreeCodes_v04
+
+
+    https://github.com/wayfair-incubator/gbq/blob/v0.5.0/gbq/bigquery.py

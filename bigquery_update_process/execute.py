@@ -3,6 +3,7 @@ import os
 import sys
 
 from gbq import BigQuery
+from pora_bigquery import PoraBigquery
 
 from pipeline_exceptions import DatasetSchemaDirectoryNonExistent, DeployFailed
 
@@ -37,7 +38,9 @@ def _execute():
         # Service account email address as listed in the Google Developers Console.
         svc_account = credentials
        
-        bq = BigQuery(svc_account=svc_account, project = gcp_project)
+        #bq = BigQuery(svc_account=svc_account, project = gcp_project)
+
+        bq = PoraBigquery(svc_account=svc_account, project = gcp_project)
 
         #bq = BigQuery(credentials, gcp_project)
         print (f"Open BigQuery objets ==> {dataset_schema_directory}")
