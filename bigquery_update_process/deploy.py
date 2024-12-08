@@ -51,6 +51,8 @@ def _deploy():
             print(f"Split root directory {root} {dirs} ")
             dataset = root.split("/").pop()
             for file in files:
+                print (f"File name {file}")
+                
                 if file != TABLE_NAME:
                     with open(f"{root}/{file}", "r") as contents:
                         file_name_and_extension = file.split(".")
