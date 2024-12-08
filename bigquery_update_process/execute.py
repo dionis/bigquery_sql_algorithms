@@ -54,9 +54,10 @@ def _execute():
                         f"Execute Query schema SELECT * FROM {gcp_project}.{dataset}.{file_name_and_extension[0]}"
                     )
 
-                    bq.execute(
-                            f"SELECT * FROM {gcp_project}.{dataset}.{file_name_and_extension[0]}"
-                        )
+                    if (file_name_and_extension[0] == 'sql')
+                        bq.execute(
+                                f"SELECT * FROM {gcp_project}.{dataset}.{file_name_and_extension[0]}"
+                            )
                     
     except Exception as e:
         print(f"Failed to execute in Bigquery: {e}")
