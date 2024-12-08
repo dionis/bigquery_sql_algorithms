@@ -57,6 +57,9 @@ jobs:
      - name: "Execute with file execute"
        working-directory: ./bigquery_update_process       
        run: python execute.py
+     - name: "CSV import with file execute"
+       working-directory: ./bigquery_update_process       
+       run: python csv_import.py
         
     #  - name: Google Bigquery "Deploy table, view and other structure definitions" Action for Github Action
     #    # You may pin to the exact commit or the version.

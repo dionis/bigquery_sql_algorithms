@@ -24,6 +24,8 @@ Add information in SQL to Bigquery datasource
 
   - [Loading CSV data from Cloud Storage](https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv)
 
+  - [Better Error Handling with BigQuery Python client](https://medium.com/google-cloud/better-error-handling-with-bigquery-python-client-1343582c7a1c)
+
 
 
   Example algorithm name:
