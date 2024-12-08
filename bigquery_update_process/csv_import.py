@@ -60,9 +60,10 @@ def _csv_import():
                         )
 
                         if file_name_and_extension[1] == "csv":
-                            schema = contents.read()
+                            #CSV text all
+                            schema = contents.read() 
                          
-                            print (f"Load csv {gcp_project} and {dataset} and {file_name_and_extension[0]} {schema}")
+                            print (f"Load csv {gcp_project} and {dataset} and {file_name_and_extension[0]} ")
                             #bq.bigquery_import_csv( root + "/" + file, file)                      
                     
                     print(f"Imported {file} to {dataset} in Bigquery")
