@@ -52,19 +52,20 @@ def _deploy():
             dataset = root.split("/").pop()
             for file in files:
                 print (f"File name {file}")
-                
-                if file != TABLE_NAME:
+
+                if file != TABLE_NAME or :
                     with open(f"{root}/{file}", "r") as contents:
                         file_name_and_extension = file.split(".")
                         print(
                             f"Updating schema for {gcp_project}.{dataset}.{file_name_and_extension[0]}"
                         )
+
                         if file_name_and_extension[1] == "sql":
                             schema = contents.read()
                             bq.create_or_update_view(
                                 gcp_project, dataset, file_name_and_extension[0], schema
                             )
-                        else:
+                        elif file_name_and_extension[1] != "csv":
                             schema = json.loads(contents.read())
                             bq.create_or_update_structure(
                                 gcp_project, dataset, file_name_and_extension[0], schema
