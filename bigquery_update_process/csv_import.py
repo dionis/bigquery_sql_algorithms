@@ -65,7 +65,7 @@ def _csv_import():
                             print (f"Load csv {gcp_project} and {dataset} and {file_name_and_extension[0]} {schema}")
                             #bq.bigquery_import_csv( root + "/" + file, file)                      
                     
-                    print(f"Imported {file_in_table} to {dataset} in Bigquery")
+                    print(f"Imported {file} to {dataset} in Bigquery")
 
                     
     except Exception as e:
