@@ -9,6 +9,8 @@ from pipeline_exceptions import DatasetSchemaDirectoryNonExistent, DeployFailed
 
 sys.tracebacklimit = 0
 
+TABLE_NAME = 'table'
+
 
 def _validate_env_variables():
     if not os.environ.get("gcp_project"):
@@ -49,21 +51,22 @@ def _deploy():
             print(f"Split root directory {root} {dirs} ")
             dataset = root.split("/").pop()
             for file in files:
-                with open(f"{root}/{file}", "r") as contents:
-                    file_name_and_extension = file.split(".")
-                    print(
-                        f"Updating schema for {gcp_project}.{dataset}.{file_name_and_extension[0]}"
-                    )
-                    if file_name_and_extension[1] == "sql":
-                        schema = contents.read()
-                        bq.create_or_update_view(
-                            gcp_project, dataset, file_name_and_extension[0], schema
+                if file != TABLE_NAME:
+                    with open(f"{root}/{file}", "r") as contents:
+                        file_name_and_extension = file.split(".")
+                        print(
+                            f"Updating schema for {gcp_project}.{dataset}.{file_name_and_extension[0]}"
                         )
-                    else:
-                        schema = json.loads(contents.read())
-                        bq.create_or_update_structure(
-                            gcp_project, dataset, file_name_and_extension[0], schema
-                        )
+                        if file_name_and_extension[1] == "sql":
+                            schema = contents.read()
+                            bq.create_or_update_view(
+                                gcp_project, dataset, file_name_and_extension[0], schema
+                            )
+                        else:
+                            schema = json.loads(contents.read())
+                            bq.create_or_update_structure(
+                                gcp_project, dataset, file_name_and_extension[0], schema
+                            )
     except Exception as e:
         print(f"Failed to deploy to Bigquery: {e}")
         deploy_failed = True

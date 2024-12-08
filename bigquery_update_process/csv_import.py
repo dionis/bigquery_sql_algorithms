@@ -8,6 +8,8 @@ from pipeline_exceptions import DatasetSchemaDirectoryNonExistent, DeployFailed
 
 sys.tracebacklimit = 0
 
+TABLE_NAME = 'table'
+
 def _validate_env_variables():
     if not os.environ.get("gcp_project"):
         raise Exception("Missing `gcp_project` config")
