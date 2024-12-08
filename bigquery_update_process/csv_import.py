@@ -48,12 +48,23 @@ def _csv_import():
         for root, dirs, files in os.walk(dataset_schema_directory):
             print(f"Split root directory {root} {dirs} ")
             dataset = root.split("/").pop()
+
             for file in files:
-               #def bigquery_import_csv(self, file_path: str, table_id: str):
-               if os.path.is_directory(root + "/" + file) and file == TABLE_NAME:
-                 root_in_table, dirs_in_table, files_in_table = os.walk(dataset_schema_directory + "/" + file) 
-                 for file_in_table in files_in_table:
-                    #bq.bigquery_import_csv( root + "/" + file, file)
+                print (f"File name {file}")
+
+                if file != TABLE_NAME:
+                    with open(f"{root}/{file}", "r") as contents:
+                        file_name_and_extension = file.split(".")
+                        print(
+                            f"Updating schema for {gcp_project}.{dataset}.{file_name_and_extension[0]}"
+                        )
+
+                        if file_name_and_extension[1] == "csv":
+                            schema = contents.read()
+                         
+                            print (f"Load csv {gcp_project} and {dataset} and {file_name_and_extension[0]} {schema}")
+                            #bq.bigquery_import_csv( root + "/" + file, file)                      
+                    
                     print(f"Imported {file_in_table} to {dataset} in Bigquery")
 
                     

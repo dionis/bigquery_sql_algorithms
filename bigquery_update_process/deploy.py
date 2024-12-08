@@ -53,7 +53,7 @@ def _deploy():
             for file in files:
                 print (f"File name {file}")
 
-                if file != TABLE_NAME or :
+                if file != TABLE_NAME:
                     with open(f"{root}/{file}", "r") as contents:
                         file_name_and_extension = file.split(".")
                         print(
