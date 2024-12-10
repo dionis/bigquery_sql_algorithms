@@ -36,15 +36,15 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
             list_of_tables = process_algorithm[TABLE_NAME]
             for iTable in list_of_tables:
                 table_name,  csv_file_toload_bigquery = iTable
-                print(f"Step 0 - Drpo table {table_name} if exist  `{SQL_DROP_TABLE} {table_name}`\n")
+                print(f"Step 0 - Drpo table {table_name} if exist  `{SQL_DROP_TABLE} {dataset_schema_directory}.{table_name}`\n")
 
                 bq.execute(
-                        f"{SQL_DROP_TABLE} {table_name}"
+                        f"{SQL_DROP_TABLE} {dataset_schema_directory}.{table_name}"
                     )
 
                 print(f"Step 1 - Create table {table_name} in BigQuery using csv source code {csv_file_toload_bigquery}\n")
                 
-                bq.bigquery_import_csv(csv_file_toload_bigquery, table_name)
+                bq.bigquery_import_csv(csv_file_toload_bigquery, {dataset_schema_directory}.{table_name})
             
             #erase in dictornary
             del process_algorithm[TABLE_NAME]
