@@ -2,7 +2,7 @@ import os
 #from gbq import BigQuery
 #from pora_bigquery import PoraBigquery
 
-bigquery_datasets = 'bigquery_update_process/test_pora_bigquery/'
+_bigquery_datasets = 'bigquery_update_process/test_pora_bigquery/'
 MAX_FILES_IN_ALGORITMDIR = 3
 ERROR_MAX_FILES_IN_ALGORITMDIR = 'A size of files more than permit in algorithm directory.'
 TABLE_NAME = 'tables'
@@ -137,9 +137,32 @@ def _evaluate_directory_files(root_directory):
 
     print("Finished processing all directories.")
 
+def _validate_env_variables():
+    if not os.environ.get("gcp_project"):
+        raise Exception("Missing `gcp_project` config")
+
+    if not os.environ.get("dataset_schema_directory"):
+        raise Exception("Missing `dataset_schema_directory` config")
+
+    if not os.environ.get("credentials"):
+        raise Exception("Missing `credentials` config")
+
+def _validate_if_path_exists():
+    dataset_schema_directory = os.environ.get("dataset_schema_directory")
+    print(f"Directory path to file {dataset_schema_directory}")
+    return os.path.isdir(dataset_schema_directory)
 
 def main():
-    _evaluate_directory_files(bigquery_datasets)
+     _validate_env_variables()
+    print("-----------------")
+    if _validate_if_path_exists():
+       print("------====================================-----------")
+         bigquery_datasets = os.environ.get("dataset_schema_directory")
+        _evaluate_directory_files(bigquery_datasets)
+       print("------====================================-----------")
+    else:
+        raise DatasetSchemaDirectoryNonExistent
+  
 
 
 if __name__ == "__main__":
