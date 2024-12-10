@@ -25,6 +25,8 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
         credentials = os.environ.get("credentials")
         gcp_project = os.environ.get("gcp_project")
 
+        svc_account = credentials
+
         bq = PoraBigquery(svc_account=svc_account, project = gcp_project)
 
         # 1- Create temporal table in Biguery squeme
