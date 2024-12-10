@@ -44,7 +44,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
 
                 print(f"Step 1 - Create table {table_name} in BigQuery using csv source code {csv_file_toload_bigquery}\n")
                 
-                bq.bigquery_import_csv(csv_file_toload_bigquery, {dataset_schema_directory}.{table_name})
+                bq.bigquery_import_csv(csv_file_toload_bigquery, f"{dataset_schema_directory}.{table_name}")
             
             #erase in dictornary
             del process_algorithm[TABLE_NAME]
