@@ -155,11 +155,11 @@ def _validate_if_path_exists():
 def main():
     _validate_env_variables()
     print("-----------------")
-    
+
     if _validate_if_path_exists():
        print("------====================================-----------")
-         bigquery_datasets = os.environ.get("dataset_schema_directory")
-        _evaluate_directory_files(bigquery_datasets)
+       bigquery_datasets = os.environ.get("dataset_schema_directory")
+       _evaluate_directory_files(bigquery_datasets)
        print("------====================================-----------")
     else:
         raise DatasetSchemaDirectoryNonExistent
