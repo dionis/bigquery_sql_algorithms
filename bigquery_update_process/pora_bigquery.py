@@ -11,7 +11,7 @@ class PoraBigquery(BigQuery):
     def __init__(self, svc_account: str, project: Optional[str] = None):
         super().__init__(svc_account, project)
 
-    def bigquery_import_csv(self, file_path: str, table_id: str):
+    def bigquery_import_csv(self, file_path: str, table_id: str, schema_id: str):
 
         try:
             job_config = bigquery.LoadJobConfig(
@@ -19,7 +19,7 @@ class PoraBigquery(BigQuery):
                 source_format = bigquery.SourceFormat.CSV,
                 field_delimiter = ",",
                 skip_leading_rows = 1,
-                # schema=schema_arr
+                schema = schema_id
             )
 
             with open(file_path, "rb") as source_file:
