@@ -19,7 +19,7 @@ class PoraBigquery(BigQuery):
                 source_format = bigquery.SourceFormat.CSV,
                 field_delimiter = ",",
                 skip_leading_rows = 1,
-                schema = schema_id
+               # schema = schema_id
             )
 
             with open(file_path, "rb") as source_file:
