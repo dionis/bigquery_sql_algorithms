@@ -153,8 +153,9 @@ def _validate_if_path_exists():
     return os.path.isdir(dataset_schema_directory)
 
 def main():
-     _validate_env_variables()
+    _validate_env_variables()
     print("-----------------")
+    
     if _validate_if_path_exists():
        print("------====================================-----------")
          bigquery_datasets = os.environ.get("dataset_schema_directory")
