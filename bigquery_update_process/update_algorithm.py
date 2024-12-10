@@ -1,6 +1,6 @@
 import os
-#from gbq import BigQuery
-#from pora_bigquery import PoraBigquery
+from gbq import BigQuery
+from pora_bigquery import PoraBigquery
 
 _bigquery_datasets = 'bigquery_update_process/test_pora_bigquery/'
 MAX_FILES_IN_ALGORITMDIR = 3
