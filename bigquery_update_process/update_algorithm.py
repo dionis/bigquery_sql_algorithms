@@ -22,6 +22,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
         table_name = csv_file_toload_bigquery = ''
 
         dataset_schema_directory = os.environ.get("dataset_schema_directory")
+        dataset_schema_directory = dataset_schema_directory.split("/").pop()
         credentials = os.environ.get("credentials")
         gcp_project = os.environ.get("gcp_project")
 
@@ -39,7 +40,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
                 print(f"Step 0 - Drpo table {table_name} if exist  `{SQL_DROP_TABLE} {dataset_schema_directory}.{table_name}`\n")
 
                 bq.execute(
-                        f"{SQL_DROP_TABLE} {table_name}"
+                        f"{SQL_DROP_TABLE} {dataset_schema_directory}.{table_name}"
                     )
 
                 print(f"Step 1 - Create table {table_name} in BigQuery using csv source code {csv_file_toload_bigquery}\n")
