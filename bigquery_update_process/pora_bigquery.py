@@ -57,6 +57,7 @@ class PoraBigquery(BigQuery):
             df = query_job.to_dataframe()
             
             if os.path.exists(address_to_save):
+               print (f"Save view execute result in csv format to {address_to_save}{os.sep}result_{view_name}")
                df.to_csv(f"{address_to_save}{os.sep}result_{view_name}", index=False)
 
     def create_or_update_view(
