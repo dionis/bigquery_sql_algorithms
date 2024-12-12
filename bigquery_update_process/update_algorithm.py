@@ -53,6 +53,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
                     if jtable_name == itable_name  and icsv_file[1] != jcsv_file[1] and itable_name not in dict_file_in_table:
                          dict_file_in_table[itable_name] = (icsv_file_toload_bigquery,jcsv_file_toload_bigquery)
                         
+            print(f"Data in tables {dict_file_in_table}")
             
             for table_name, value in dict_file_in_table.items():
                 csv_file_toload_bigquery,  json_file_toload_bigquery = value
