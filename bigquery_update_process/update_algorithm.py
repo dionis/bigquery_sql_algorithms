@@ -96,9 +96,9 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
             
             bq.execute(f"SELECT * FROM {gcp_project}.{dataset_schema_directory}.{view_name}")
             
-             print(f"Step 4- Export in CSV view {view_name} execution\n")
+            print(f"Step 4- Export in CSV view {view_name} execution\n")
             
-            export_to_csv(self, f"SELECT * FROM {gcp_project}.{dataset_schema_directory}.{view_name}", bigquery_dataset, view_name):
+            bq.export_to_csv(self, f"SELECT * FROM {gcp_project}.{dataset_schema_directory}.{view_name}", bigquery_dataset, view_name):
 
         #Delete temporal table
         if table_name != '':
