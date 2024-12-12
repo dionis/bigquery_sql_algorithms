@@ -106,13 +106,15 @@ def process_algorithm_codesource(bigquery_dataset: str, algorithm_name: str, alg
 
     list_of_files = os.listdir(algoritm_source_address)
     size_of_files = len(list_of_files)
+    
+    print(f" List files in directory: {list_of_files}")
 
     if size_of_files == 0 or size_of_files > MAX_FILES_IN_ALGORITMDIR:
         raise Exception(f"{ERROR_MAX_FILES_IN_ALGORITMDIR}: {size_of_files}")
     else:
         process_algorithm = {}
 
-        for ifiles in  os.listdir(algoritm_source_address):
+        for ifiles in  list_of_files:
             source_path = algoritm_source_address + os.sep + ifiles  
 
             if os.path.isdir(source_path) and ifiles != DOC_DIRECTORY:
