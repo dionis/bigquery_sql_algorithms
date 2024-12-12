@@ -43,16 +43,16 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
             print ('There are Table ', list_of_tables)
             
             for iTable in list_of_tables:
-                itable_name,  icsv_file_toload_bigquery = iTable
-                icsv_file = icsv_file_toload_bigquery.split(".")
+                itable_name, icsv_file_toload_bigquery = iTable
+                ifile_name, icsv_file_extension = os.path.splitext(icsv_file_toload_bigquery)
                 
                 for jTable in list_of_tables:
-                    jtable_name,  jcsv_file_toload_bigquery = jTable
-                    jcsv_file = jcsv_file_toload_bigquery.split(".")
+                    jtable_name, jcsv_file_toload_bigquery = jTable
+                    jfile_name, jcsv_file_extension = os.path.splitext(jcsv_file_toload_bigquery)
                     
                     print(f" itable_name {itable_name} and icsv_file {icsv_file} Vs jtable_name {jtable_name} and jcsv_file {jcsv_file}")
                     
-                    if jtable_name == itable_name  and icsv_file[1] != jcsv_file[1] and itable_name not in dict_file_in_table:
+                    if jtable_name == itable_name  and icsv_file_extension != jcsv_file_extension and itable_name not in dict_file_in_table:
                          dict_file_in_table[itable_name] = (icsv_file_toload_bigquery, jcsv_file_toload_bigquery)
                         
             print(f"Data in tables {dict_file_in_table}")
