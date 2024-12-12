@@ -92,7 +92,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
                 bq.create_or_update_view(gcp_project, dataset_schema_directory, view_name, schema)                           
             
             #Execute algoritm for testing propouse
-            print(f"Step 3- Execute PORA algorithm {key} in Bigquery with file in address {ialgorithm_source_address}\n")
+            print(f"Step 3- Execute PORA algorithm {view_name} in Bigquery with file in address {ialgorithm_source_address}\n")
             
             bq.execute(f"SELECT * FROM {gcp_project}.{dataset_schema_directory}.{view_name}")
 
