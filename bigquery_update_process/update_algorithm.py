@@ -50,7 +50,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
                     jtable_name, jcsv_file_toload_bigquery = jTable
                     jfile_name, jcsv_file_extension = os.path.splitext(jcsv_file_toload_bigquery)
                     
-                    print(f" itable_name {itable_name} and icsv_file {icsv_file} Vs jtable_name {jtable_name} and jcsv_file {jcsv_file}")
+                    print(f" itable_name {itable_name} and icsv_file {icsv_file_extension} Vs jtable_name {jtable_name} and jcsv_file {jcsv_file_extension}")
                     
                     if jtable_name == itable_name  and icsv_file_extension != jcsv_file_extension and itable_name not in dict_file_in_table:
                          dict_file_in_table[itable_name] = (icsv_file_toload_bigquery, jcsv_file_toload_bigquery)
