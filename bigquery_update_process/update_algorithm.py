@@ -40,6 +40,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
             #Extract information from table directory
             list_of_tables = process_algorithm[TABLE_NAME]
             dict_file_in_table = {}
+            print ('There are Table information')
             
             for iTable in list_of_tables:
                 itable_name,  icsv_file_toload_bigquery = iTable
@@ -101,7 +102,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
 
 
 def process_algorithm_codesource(bigquery_dataset: str, algorithm_name: str, algoritm_source_address:str):
-    #print(f"In file addres {algoritm_source_address}")   
+    print(f"In file addres {algoritm_source_address}")   
 
     list_of_files = os.listdir(algoritm_source_address)
     size_of_files = len(list_of_files)
