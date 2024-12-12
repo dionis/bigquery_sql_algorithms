@@ -1,1 +1,1 @@
-SELECT * FROM `finalPool_v2` LIMIT 1000
+SELECT * FROM `import_dev.finalPool_v2` LIMIT 1000
