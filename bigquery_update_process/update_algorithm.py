@@ -50,9 +50,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
                     jtable_name,  jcsv_file_toload_bigquery = jTable
                     jcsv_file = jcsv_file_toload_bigquery.split(".")
                     
-                    if jtable_name == itable_name \
-                      and icsv_file[1] != jcsv_file[1] \
-                      and itable_name not in dict_file_in_table:
+                    if jtable_name == itable_name  and icsv_file[1] != jcsv_file[1] and itable_name not in dict_file_in_table:
                          dict_file_in_table[itable_name] = (icsv_file_toload_bigquery,jcsv_file_toload_bigquery)
                         
             
