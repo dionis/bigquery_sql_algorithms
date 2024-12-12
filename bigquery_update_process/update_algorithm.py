@@ -40,7 +40,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
             #Extract information from table directory
             list_of_tables = process_algorithm[TABLE_NAME]
             dict_file_in_table = {}
-            print ('There are Table')
+            print ('There are Table ', list_of_tables)
             
             for iTable in list_of_tables:
                 itable_name,  icsv_file_toload_bigquery = iTable
