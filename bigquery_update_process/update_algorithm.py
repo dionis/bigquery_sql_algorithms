@@ -84,7 +84,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
         
         #Update algoritm code in Bigquery
         for view_name, ialgorithm_source_address in process_algorithm.items():
-            print(f"Step 2- Create or Update PORA algorithm {key} in Bigquery with file in address {ialgorithm_source_address}\n")
+            print(f"Step 2- Create or Update PORA algorithm {view_name} in Bigquery with file in address {ialgorithm_source_address}\n")
             
             with open(f"{ialgorithm_source_address}", "r") as contents:
                 file_name, file_name_extension = os.path.splitext(ialgorithm_source_address)
