@@ -32,7 +32,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
 
         svc_account = credentials
 
-       bq = PoraBigquery(svc_account=svc_account, project = gcp_project)
+        bq = PoraBigquery(svc_account=svc_account, project = gcp_project)
 
         # 1- Create temporal table in Biguery squeme
         if TABLE_NAME in process_algorithm:
