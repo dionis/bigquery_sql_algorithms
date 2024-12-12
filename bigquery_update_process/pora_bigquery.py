@@ -47,7 +47,14 @@ class PoraBigquery(BigQuery):
              print (e)
         except ClientError as e:
              print (e)
-             
+        
+    def export_to_csv(self, query, address_to_save, view_name):
+        if query != '' and query != None:
+            ⁠query_job =  self.bq_client.query(QUERY)    
+            df = query_job.to_dataframe()
+            
+            if os.path.exists(address_to_save):
+               df.to_csv(f"{address_to_save}{os.sep}result_{view_name}", index=False)
 
     def create_or_update_view(
         self, project: str, dataset: str, view_name: str, sql_schema: str

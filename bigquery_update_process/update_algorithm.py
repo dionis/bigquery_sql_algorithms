@@ -95,10 +95,14 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
             print(f"Step 3- Execute PORA algorithm {view_name} in Bigquery with file in address {ialgorithm_source_address}\n")
             
             bq.execute(f"SELECT * FROM {gcp_project}.{dataset_schema_directory}.{view_name}")
+            
+             print(f"Step 4- Export in CSV view {view_name} execution\n")
+            
+            export_to_csv(self, f"SELECT * FROM {gcp_project}.{dataset_schema_directory}.{view_name}", bigquery_dataset, view_name):
 
         #Delete temporal table
         if table_name != '':
-          print(f"Step 4- Delete temporal table {table_name} in BigQuery\n")
+          print(f"Step 5- Delete temporal table {table_name} in BigQuery\n")
           #bq.delete_table(gcp_project, dataset, table_name)
         
         # 2- Import data from CSV file to temporal table in BigQuery
