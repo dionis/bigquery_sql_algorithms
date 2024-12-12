@@ -7,7 +7,8 @@ from google.cloud.bigquery.routine import Routine, RoutineArgument
 from google.api_core.exceptions import NotFound, ClientError
 from google.cloud.bigquery.table import PartitionRange, Table
 from gbq import BigQuery
-⁠import pandas as pd
+import pandas as pd
+
 
 class PoraBigquery(BigQuery):
     def __init__(self, svc_account: str, project: Optional[str] = None):
