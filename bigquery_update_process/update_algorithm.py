@@ -2,18 +2,22 @@ import os
 from gbq import BigQuery
 from pora_bigquery import PoraBigquery
 
-_bigquery_datasets = 'bigquery_update_process/test_pora_bigquery/'
+BIGQUERY_DATASET = 'import_dev'
 MAX_FILES_IN_ALGORITMDIR = 3
 ERROR_MAX_FILES_IN_ALGORITMDIR = 'A size of files more than permit in algorithm directory.'
 TABLE_NAME = 'tables'
 ERROR_TABLE_NAME_NOT_FOUND = 'The name of table directory is not corret or not exist.'
 LIMIT_FILE_INTABLE = 5
 ERROR_LIMIT_FILE_INTABLE = 'The limit of files in table directory is more than permit.'
-CORRECT_TABLE_EXTENSION = 'csv'
+CORRECT_TABLE_EXTENSION = ['csv', 'json']
 ERROR_CORRECT_TABLE_EXTENSION = 'The file for temporal table is not correct.'
 DOC_DIRECTORY = "WP"
 
 SQL_DROP_TABLE = "DROP TABLE IF EXISTS "
+
+def get_squema_directory():
+    return os.environ.get("dataset_schema_directory") if os.environ.get("dataset_schema_directory") != None  else BIGQUERY_DATASET
+
 
 def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dict):
         print(f"*** Information about PORA algorithm source code for dataset {bigquery_dataset} ***\n")
@@ -21,31 +25,57 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
 
         table_name = csv_file_toload_bigquery = ''
 
-        dataset_schema_directory = os.environ.get("dataset_schema_directory")
+        dataset_schema_directory =  get_squema_directory()
         dataset_schema_directory = dataset_schema_directory.split("/").pop()
         credentials = os.environ.get("credentials")
         gcp_project = os.environ.get("gcp_project")
 
         svc_account = credentials
 
-        bq = PoraBigquery(svc_account=svc_account, project = gcp_project)
+       bq = PoraBigquery(svc_account=svc_account, project = gcp_project)
 
         # 1- Create temporal table in Biguery squeme
         if TABLE_NAME in process_algorithm:
         
             #Extract information from table directory
             list_of_tables = process_algorithm[TABLE_NAME]
+            dict_file_in_table = {}
+            
             for iTable in list_of_tables:
-                table_name,  csv_file_toload_bigquery = iTable
-                print(f"Step 0 - Drpo table {table_name} if exist  `{SQL_DROP_TABLE} {dataset_schema_directory}.{table_name}`\n")
+                itable_name,  icsv_file_toload_bigquery = iTable
+                icsv_file = icsv_file_toload_bigquery.split(".")
+                
+                for jTable in list_of_tables:
+                    jtable_name,  jcsv_file_toload_bigquery = jTable
+                    jcsv_file = jcsv_file_toload_bigquery.split(".")
+                    
+                    if jtable_name == itable_name \
+                      and icsv_file[1] != jcsv_file[1] \
+                      and itable_name not in dict_file_in_table:
+                         dict_file_in_table[itable_name] = (icsv_file_toload_bigquery,jcsv_file_toload_bigquery)
+                        
+            
+            for table_name, value in dict_file_in_table.items():
+                csv_file_toload_bigquery,  json_file_toload_bigquery = value
+                print(f"Step 0 - Drop table {table_name} if exist  `{SQL_DROP_TABLE} {dataset_schema_directory}.{table_name}`\n")
 
                 bq.execute(
                         f"{SQL_DROP_TABLE} {dataset_schema_directory}.{table_name}"
                     )
 
                 print(f"Step 1 - Create table {table_name} in BigQuery using csv source code {csv_file_toload_bigquery}\n")
+                print(f"Step 1.1 - Create table {table_name} in BigQuery using JSON source code {json_file_toload_bigquery}\n")
                 
-                bq.bigquery_import_csv(csv_file_toload_bigquery, f"{gcp_project}.{dataset_schema_directory}.{table_name}", dataset_schema_directory)
+                # import json 
+                
+                # with open(json_file_toload_bigquery) as f:
+                #     json_data = json.load(f)
+                    
+                #     for key, value in json_data.items():
+                #         print(f" in Dict Json value: {key} and {value}")
+               
+                    
+                bq.bigquery_import_csv(csv_file_toload_bigquery, json_file_toload_bigquery, f"{gcp_project}.{dataset_schema_directory}.{table_name}", dataset_schema_directory)
             
             #erase in dictornary
             del process_algorithm[TABLE_NAME]
@@ -99,18 +129,18 @@ def process_algorithm_codesource(bigquery_dataset: str, algorithm_name: str, alg
                         for ifile_intable in list_source_code_intable:
                             file_name_and_extension = ifile_intable.split(".")      
 
-                            if (file_name_and_extension[1] != CORRECT_TABLE_EXTENSION):
+                            if (file_name_and_extension[1] not in  CORRECT_TABLE_EXTENSION):
                                 raise Exception(f"{ERROR_CORRECT_TABLE_EXTENSION}: {file_name_and_extension[1]}")
                             else:
                                 if  TABLE_NAME not in process_algorithm:
                                    process_algorithm[TABLE_NAME] = [(
                                                 file_name_and_extension[0],  
-                                                source_path + os.sep + list_source_code_intable[0]
+                                                source_path + os.sep + ifile_intable
                                             )]
                                 else:
                                     process_algorithm[TABLE_NAME].append((
                                                 file_name_and_extension[0],  
-                                                source_path + os.sep + list_source_code_intable[0]
+                                                source_path + os.sep + ifile_intable
                                             ))
                 
             elif os.path.isfile(source_path):
@@ -151,7 +181,8 @@ def _validate_env_variables():
         raise Exception("Missing `credentials` config")
 
 def _validate_if_path_exists():
-    dataset_schema_directory = os.environ.get("dataset_schema_directory")
+    dataset_schema_directory = get_squema_directory()
+    
     print(f"Directory path to file {dataset_schema_directory}")
     return os.path.isdir(dataset_schema_directory)
 
@@ -161,7 +192,7 @@ def main():
 
     if _validate_if_path_exists():
        print("------====================================-----------")
-       bigquery_datasets = os.environ.get("dataset_schema_directory")
+       bigquery_datasets = get_squema_directory()
        _evaluate_directory_files(bigquery_datasets)
        print("------====================================-----------")
     else:

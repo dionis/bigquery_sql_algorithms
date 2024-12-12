@@ -1,4 +1,5 @@
 from typing import Dict, List, Optional, Union
+import json
 from google.cloud import bigquery
 from google.cloud.bigquery import QueryJob
 from google.cloud.bigquery.dataset import DatasetListItem
@@ -11,7 +12,17 @@ class PoraBigquery(BigQuery):
     def __init__(self, svc_account: str, project: Optional[str] = None):
         super().__init__(svc_account, project)
 
-    def bigquery_import_csv(self, file_path: str, table_id: str, schema_id: str):
+    def bigquery_import_csv(self, file_path: str, json_file_path: str, table_id: str, schema_id: str):
+        
+        schema_to_bigquery = []
+        
+        with open(json_file_path) as f:
+            json_data = json.load(f)
+                    
+            for key, value in json_data.items():
+                schema_to_bigquery.append( bigquery.SchemaField(key,value))    
+                
+                #print(f" in Dict Json value: {key} and {value}")
 
         try:
             job_config = bigquery.LoadJobConfig(
@@ -19,7 +30,7 @@ class PoraBigquery(BigQuery):
                 source_format = bigquery.SourceFormat.CSV,
                 field_delimiter = ",",
                 skip_leading_rows = 1,
-               # schema = schema_id
+                schema = schema_to_bigquery
             )
 
             with open(file_path, "rb") as source_file:
