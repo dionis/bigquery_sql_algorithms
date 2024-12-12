@@ -1,5 +1,6 @@
-from typing import Dict, List, Optional, Union
+import os
 import json
+from typing import Dict, List, Optional, Union
 from google.cloud import bigquery
 from google.cloud.bigquery import QueryJob
 from google.cloud.bigquery.dataset import DatasetListItem
