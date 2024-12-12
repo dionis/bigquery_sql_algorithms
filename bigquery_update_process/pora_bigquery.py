@@ -50,7 +50,7 @@ class PoraBigquery(BigQuery):
         
     def export_to_csv(self, query, address_to_save, view_name):
         if query != '' and query != None:
-            ⁠query_job =  self.bq_client.query(QUERY)    
+            query_job = self.bq_client.query(query)    
             df = query_job.to_dataframe()
             
             if os.path.exists(address_to_save):

@@ -34,6 +34,8 @@ Add information in SQL to Bigquery datasource
 
 - [JSON Parsing with Python [Practical Guide]](https://www.zyte.com/blog/json-parsing-with-python/)
 
+- [How to export results to CSV in BigQuery](https://deepnote.com/guides/google-cloud/how-to-export-results-to-csv-in-bigquery)
+
   ### **Example algorithm name:**
 
     - pora-global.Algorithms.YP_AllergySkinTestingGroupThreeCodes_v04
