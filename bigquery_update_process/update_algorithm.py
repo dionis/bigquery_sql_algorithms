@@ -61,12 +61,12 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
                json_file_toload_bigquery, csv_file_toload_bigquery = value
                print(f"Step 0 - Drop table {table_name} if exist  `{SQL_DROP_TABLE} {dataset_schema_directory}.{table_name}`\n")
 
-                bq.execute(
+               bq.execute(
                         f"{SQL_DROP_TABLE} {dataset_schema_directory}.{table_name}"
                     )
 
-                print(f"Step 1 - Create table {table_name} in BigQuery using csv source code {csv_file_toload_bigquery}\n")
-                print(f"Step 1.1 - Create table {table_name} in BigQuery using JSON source code {json_file_toload_bigquery}\n")
+               print(f"Step 1 - Create table {table_name} in BigQuery using csv source code {csv_file_toload_bigquery}\n")
+               print(f"Step 1.1 - Create table {table_name} in BigQuery using JSON source code {json_file_toload_bigquery}\n")
                 
                 # import json 
                 
@@ -77,7 +77,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
                 #         print(f" in Dict Json value: {key} and {value}")
                
                     
-                bq.bigquery_import_csv(csv_file_toload_bigquery, json_file_toload_bigquery, f"{gcp_project}.{dataset_schema_directory}.{table_name}", dataset_schema_directory)
+               bq.bigquery_import_csv(csv_file_toload_bigquery, json_file_toload_bigquery, f"{gcp_project}.{dataset_schema_directory}.{table_name}", dataset_schema_directory)
             
             #erase in dictornary
             del process_algorithm[TABLE_NAME]
