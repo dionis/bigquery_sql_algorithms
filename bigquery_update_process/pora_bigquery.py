@@ -19,6 +19,8 @@ class PoraBigquery(BigQuery):
         
         schema_to_bigquery = []
         
+        print(f" json file path: {json_file_path}")
+        
         with open(json_file_path) as f:
             json_data = json.load(f)
                     
