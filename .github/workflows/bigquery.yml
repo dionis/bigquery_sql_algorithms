@@ -63,6 +63,10 @@ jobs:
      - name: "Execute Update PORA-Algorithm source code"
        working-directory: ./bigquery_update_process       
        run: python update_algorithm.py
+     - name: "Deploy all new workflow files"
+       uses: LarchLiu/actions-save-files@v1
+       with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
         
     #  - name: Google Bigquery "Deploy table, view and other structure definitions" Action for Github Action
     #    # You may pin to the exact commit or the version.
