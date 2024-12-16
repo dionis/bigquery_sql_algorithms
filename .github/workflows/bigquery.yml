@@ -50,7 +50,7 @@ jobs:
        run: ls -l
      - name: "Execute python requirements.txt file"
        working-directory: ./bigquery_update_process
-       run: pip install -r requirements.txt
+       run: pip install -r aux_requirements.txt
     #  - name: "Deploy with python file __init__"
     #    working-directory: ./bigquery_update_process       
     #    run: python __init__.py
