@@ -58,7 +58,7 @@ def process_source_code_in_BigQuery(bigquery_dataset:str, process_algorithm: dic
             #print(f"Data in tables {dict_file_in_table}")
             
             for table_name, value in dict_file_in_table.items():
-                csv_file_toload_bigquery,  json_file_toload_bigquery = value
+               json_file_toload_bigquery, csv_file_toload_bigquery = value
                 print(f"Step 0 - Drop table {table_name} if exist  `{SQL_DROP_TABLE} {dataset_schema_directory}.{table_name}`\n")
 
                 bq.execute(
