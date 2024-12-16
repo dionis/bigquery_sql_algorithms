@@ -26,8 +26,8 @@ jobs:
       dataset_schema_directory: '../import_dev'
       credentials: ${{ secrets.GCP_CREDENTIALS_JSON }}
    steps: 
-     - name: Download Google Cloud version
-       run: pip install google-cloud-bigquery==2.31.0 
+    #  - name: Download Google Cloud version
+    #    run: pip install google-cloud-bigquery==2.31.0 
      - name: Checkout
        uses: actions/checkout@v2.3.4
      - name: 'Update algorithms'
